@@ -5,13 +5,13 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 
 @Entity
-@Table(name="employee1")
+@Table(name="employee")
 
 public class Employee {
     @Id
     @Column(name = "E_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id = 1;
+    private int id;
     //@Column(name="Name")
     private String name;
     //@Column(name="Designation")
@@ -25,7 +25,7 @@ public class Employee {
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "jid")
     @JsonIgnore
-    public Relation jid;
+    private Relation jid;
     public Employee(){}
     public Integer getId() {
         return id;

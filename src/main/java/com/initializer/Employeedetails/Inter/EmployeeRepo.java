@@ -10,8 +10,8 @@ public interface EmployeeRepo extends CrudRepository<Employee, Integer> {
    Employee findById(int id);
    String deleteById(int id);
    List<Employee> findAllByPID(int id);
-   Employee findByPID(int id);
-   Employee findAllByDesi(String str);
-
+//   Employee findByPID(int id);
+//   Employee findAllByDesi(String str);
+//   Employee findByName(String str);
 }
 

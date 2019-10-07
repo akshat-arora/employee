@@ -16,6 +16,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 @RestController
+@RequestMapping("/api")
 public class Controller
 {
     @Autowired
@@ -43,7 +44,7 @@ public class Controller
         mp.put("Colleague : ",fcolleague);
         return mp;
    }
-    public List<Employee> coll(List<Employee> fcolleague, int id)                                                       //Method to fetch colleagues(this method removes the details of row itself and returns only colleague's info)
+    private List<Employee> coll(List<Employee> fcolleague, int id)                                                       //Method to fetch colleagues(this method removes the details of row itself and returns only colleague's info)
     {
         List<Employee> ls=new ArrayList<>();
         for(int i=0;i<fcolleague.size();i++)
@@ -106,24 +107,64 @@ public class Controller
     }
     @PutMapping(value = "/rest/employees/put/{id}")
     public ResponseEntity updateOne(@PathVariable("id") int id,@RequestBody Info user)
-    {
-        Employee up=repository.findById(id);
-        if(up== null)
-        {
+    {   Employee up = repository.findById(id);
+        if(user.isReplace())
+        {   if (up == null) {
             return new ResponseEntity("Unable to update. User with id " + id + " does not exist.", HttpStatus.NOT_FOUND);
         }
-        up.setName(user.getName());
-        up.setpID(user.getpID());
-        up.setDesi(user.getDesi());
-        Relation relation=repository1.findByDesi(user.getDesi());
-        Employee gss=repository.findById(up.getpID());
-        int a=relation.getJid();
-        int b=gss.getJid().getJid();
-        if(a<=b)                                                                                                        //Compare Job ID's of entered record and parent
-        {
-            return new ResponseEntity("Designation can not be same or higher",HttpStatus.BAD_REQUEST);
+            Employee ups=new Employee();
+            String str=user.getName();
+            if(up.getName().equals(str))
+            {
+                return new ResponseEntity("Record Already Exists",HttpStatus.BAD_REQUEST);
+            }
+            ups.setName(user.getName());
+            String str1=up.getDesi();
+            String str2=user.getDesi();
+            if(!str1.equals(str2))
+            {
+                return new ResponseEntity("Designations of row being replaced have to be same",HttpStatus.BAD_REQUEST);
+            }
+            else
+            {
+                ups.setDesi(up.getDesi());
+            }
+            ups.setpID(up.getpID());
+            Relation relation1 = repository1.findByDesi(up.getDesi());
+            ups.setJid(relation1);
+            repository.save(ups);
+            int p=ups.getId();
+            List<Employee> ls=repository.findAllByPID(id);
+            for(int i=0;i<ls.size();i++)
+            {
+                Employee lp=ls.get(i);
+                lp.setpID(p);
+            }
+            repository.deleteById(id);
+            return new ResponseEntity(ups,HttpStatus.OK);
         }
-        repository.save(up);
-        return new ResponseEntity(up,HttpStatus.OK);
+        else {
+
+            if (up == null) {
+                return new ResponseEntity("Unable to update. User with id " + id + " does not exist.", HttpStatus.NOT_FOUND);
+            }
+            up.setName(user.getName());
+            up.setpID(up.getpID());
+            up.setDesi(up.getDesi());
+            Relation relation = repository1.findByDesi(up.getDesi());
+            Employee gss = repository.findById(up.getpID());
+            up.setJid(relation);
+//            int a = relation.getJid();
+//            int b = gss.getJid().getJid();
+//            if (a <= b)                                                                                                        //Compare Job ID's of entered record and parent
+//            {
+//                return new ResponseEntity("Designation can not be same or higher", HttpStatus.BAD_REQUEST);
+//            }
+//            if (user.getDesi().equals("Intern")) {
+//                return new ResponseEntity("Intern can not replace anyone", HttpStatus.BAD_REQUEST);
+//            }
+            repository.save(up);
+        }
+        return new ResponseEntity(up, HttpStatus.OK);
     }
 }
