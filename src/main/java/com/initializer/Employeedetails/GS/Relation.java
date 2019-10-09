@@ -11,6 +11,7 @@ import java.io.Serializable;
 @Table(name = "Relation")
 public class Relation implements Serializable {
     @Id
+    //Creating table with different columns and generating their getters and setters
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @JoinColumn
     @JsonIgnore

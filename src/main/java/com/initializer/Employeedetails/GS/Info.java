@@ -1,6 +1,7 @@
 package com.initializer.Employeedetails.GS;
-
+//Creating class for providing information for Post and Put methods
 public class Info {
+
     private Integer id = -1;
     private String name = null;
     private String desi = null;

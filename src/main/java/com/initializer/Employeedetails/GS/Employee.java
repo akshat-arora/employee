@@ -9,17 +9,12 @@ import javax.persistence.*;
 
 public class Employee {
     @Id
+    //Creating table with different columns and generating their getters and setters
     @Column(name = "E_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    //@Column(name="Name")
     private String name;
-    //@Column(name="Designation")
     private String desi;
-    //@Column(name="J_id")
-    //private int j_id;
-    //@Column(name="P_id")
-    //@Nullable
     @JsonIgnore
     private int pID;
     @OneToOne(fetch = FetchType.EAGER)

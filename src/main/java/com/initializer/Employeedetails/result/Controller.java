@@ -6,14 +6,12 @@ import com.initializer.Employeedetails.GS.Info;
 import com.initializer.Employeedetails.Inter.EmployeeRepo;
 import com.initializer.Employeedetails.Inter.RelationRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 @RestController
 @RequestMapping("/api")
@@ -23,148 +21,182 @@ public class Controller
     public EmployeeRepo repository;
     @Autowired
     public RelationRepo repository1;
-    @RequestMapping("/rest/employees/get/{id}")
+    @RequestMapping(value = "/rest/employees/get/{id}",method = RequestMethod.GET)
     @ResponseBody
-   public Map<String,Object> getOne(@PathVariable("id") int id)
-   {
-        Map<String,Object> mp=new TreeMap<>();
-        Employee fuser= repository.findById(id);                                                                        //Fetching details of row with entered ID
-        String s=fuser.getName();
-        mp.put(s,fuser);
-        List<Employee> fchild=repository.findAllByPID(id);                                                              //Fetching details of subordinates of id entered
-        mp.put("Reporteee's",fchild);
-        int  a=fuser.getpID();
-        Employee fparent=repository.findById(a);                                                                        //Fetching details of Manager of ID entered
-        if(a!=0)
-        {
-            mp.put("Manager",fparent);
-        }
-        List <Employee> obj=repository.findAllByPID(a);
-        List<Employee> fcolleague= coll(obj,id);                                                                        //Fetching details of colleagues of entered ID
-        mp.put("Colleague : ",fcolleague);
-        return mp;
-   }
-    private List<Employee> coll(List<Employee> fcolleague, int id)                                                       //Method to fetch colleagues(this method removes the details of row itself and returns only colleague's info)
+    public ResponseEntity getOne(@PathVariable("id") int id)
     {
-        List<Employee> ls=new ArrayList<>();
-        for(int i=0;i<fcolleague.size();i++)
+        Map<String,Object> mp=new LinkedHashMap<>();
+        //Fetching details of row with entered ID
+        Employee user=repository.findById(id);
+        if(user==null)
         {
-            Employee m=fcolleague.get(i);
-            if(m.getId()!=id)
+            return new ResponseEntity("No record to display",HttpStatus.BAD_REQUEST);
+        }
+        mp.put("Employee",user);
+        int  parentID=user.getpID();
+        //Fetching details of Manager of ID entered
+        Employee parent=repository.findById(parentID);
+        if(parentID!=0)
+        {
+            mp.put("Manager",parent);
+        }
+        List <Employee> allColleagues=repository.findAllByPID(parentID, Sort.by("jid","name").ascending());
+        //Fetching details of colleagues of entered ID
+        List<Employee> colleague= coll(allColleagues,id);
+        mp.put("Colleagues : ",colleague);
+        //Fetching details of subordinates of id entered
+        List<Employee> child=repository.findAllByPID(id,Sort.by("jid","name").ascending());
+        mp.put("ReportingTo",child);
+        return new ResponseEntity(mp,HttpStatus.OK);
+    }
+    //Method to fetch colleagues(this method removes the details of row itself and returns only colleague's info)
+    private List<Employee> coll(List<Employee> allColleague, int id)
+    {
+        List<Employee> listColleague=new ArrayList<>();
+        for(int i=0;i<allColleague.size();i++)
+        {
+            Employee addColleague=allColleague.get(i);
+            if(addColleague.getId()!=id)
             {
-                ls.add(m);
+                listColleague.add(addColleague);
             }
         }
-        return ls;
+        return listColleague;
     }
 
-    @RequestMapping("/rest/employees/get")
-    public Iterable<Employee> findAll()
+
+    @RequestMapping(value = "/rest/employees/get",method = RequestMethod.GET)
+    //Fetches detail of every entry in the table
+    public ResponseEntity findAll()
     {
-        return repository.findAll();                                                                                    //Fetches detail of every entry in the table
+        Iterable<Employee> list= repository.findAll();
+        return new ResponseEntity(list,HttpStatus.OK);
     }
+
+
     @PostMapping(path = "/rest/employees/post",consumes = {"application/json"})
-    public ResponseEntity pos(@RequestBody Info getSet)
+    public ResponseEntity postDetail(@RequestBody Info user)
     {
-        if((getSet.getName()==null) || (getSet.getDesi()==null) || (getSet.getpID()==null))  //Fields required for new entry can not be null
+        if((user.getName()==null) || (user.getDesi()==null) || (user.getpID()==null))
         {
             return new ResponseEntity("Any of the required values can not be null. Enter Name,Designation and PID and try again.",HttpStatus.BAD_REQUEST);
         }
-        Employee gs=new Employee();
-        gs.setName(getSet.getName());                                                                                   //Set name that is entered by user in new entry
-        gs.setpID(getSet.getpID());                                                                                     //Set parent id that is entered by user in new entry
-        Relation gs1 = repository1.findByDesi(getSet.getDesi());                                                        //Fetch designation from Relation Table
-        gs.setDesi(getSet.getDesi());                                                                                   //Set designation that is entered by user in new entry
-        gs.setJid(gs1);                                                                                                 //Set Job ID by using designation field of Relation table(automatic adoption of JOB id with designation)
-        Employee gss=repository.findById(gs.getpID());
-        int a=gs1.getJid();
-        int b=gss.getJid().getJid();
-        if(a<=b)                                                                                                        //Compare Job ID's of entered record and parent
+        Employee tDetails=new Employee();
+        //Set details that are entered by user in new entry
+        tDetails.setName(user.getName());
+        tDetails.setpID(user.getpID());
+        //Fetch designation from Relation table for auto assigning Job ID
+        Relation fkey = repository1.findByDesi(user.getDesi());
+        tDetails.setDesi(user.getDesi());
+        tDetails.setJid(fkey);
+        Employee tPidDetails=repository.findById(tDetails.getpID());
+        int tableJid=fkey.getJid();
+        int userJid=tPidDetails.getJid().getJid();
+        if(tableJid<=userJid)
         {
             return new ResponseEntity("Designation can not be same or higher",HttpStatus.BAD_REQUEST);
         }
-        repository.save(gs);
-        return new ResponseEntity(gs,HttpStatus.OK);
+        repository.save(tDetails);
+        return new ResponseEntity(tDetails,HttpStatus.OK);
     }
+
+
     @DeleteMapping(value = "/rest/employees/delete/{id}")
     public ResponseEntity deleteOne(@PathVariable("id") int id)
     {
-        Employee s=repository.findById(id);                                                                             //Getting row information of id that is required to be deleted
-        String st=s.getDesi();                                                                                          //Getting designation of row to be deleted
-        if(st.equals("Director"))                                                                                       //Checking if designation is director(director can not be deleted)
+        //Getting row information of id that is to be deleted
+        Employee user=repository.findById(id);
+        String designation=user.getDesi();
+        //Checking if designation is director(director can not be deleted)
+        if(designation.equals("Director"))
         {
             return new ResponseEntity("Director can not be deleted",HttpStatus.BAD_REQUEST);
         }
-        int p=s.getpID();                                                                                               //Getting parent id of row to be deleted
-        List<Employee> ls=repository.findAllByPID(id);                                                                  //Finding parent id equal to Id of row to be deleted(Children of row to be deleted)
-        for(int i=0;i<ls.size();i++)
+        int parent=user.getpID();
+        //Finding children of row to be deleted
+        List<Employee> listParent=repository.findAllByPID(id,Sort.by("jid","name").ascending());
+        //Setting Parent id of each child to parent id of row to be deleted
+        for(int i=0;i<listParent.size();i++)
         {
-            Employee lp=ls.get(i);
-            lp.setpID(p);                                                                                               //Changing Parent id of each child to parent id of row to be deleted
+            Employee newParent=listParent.get(i);
+            newParent.setpID(parent);
         }
-                        repository.deleteById(id);                                                                      //Deletes row with id entered
+        repository.deleteById(id);
         return new ResponseEntity("Record deleted",HttpStatus.OK);
     }
+
+
     @PutMapping(value = "/rest/employees/put/{id}")
     public ResponseEntity updateOne(@PathVariable("id") int id,@RequestBody Info user)
-    {   Employee up = repository.findById(id);
+    {   Employee update = repository.findById(id);
         if(user.isReplace())
-        {   if (up == null) {
+        {   if (update == null) {
             return new ResponseEntity("Unable to update. User with id " + id + " does not exist.", HttpStatus.NOT_FOUND);
         }
-            Employee ups=new Employee();
-            String str=user.getName();
-            if(up.getName().equals(str))
+            Employee updateReplace=new Employee();
+            String gName=user.getName();
+            if(update.getName().equals(gName) && update.getpID()==user.getpID())
             {
                 return new ResponseEntity("Record Already Exists",HttpStatus.BAD_REQUEST);
             }
-            ups.setName(user.getName());
-            String str1=up.getDesi();
-            String str2=user.getDesi();
-            if(!str1.equals(str2))
+            //Set details in table entered by user
+            updateReplace.setName(user.getName());
+            String tableDesi=update.getDesi();
+            String userDesi=user.getDesi();
+            if(tableDesi.equals(userDesi))
             {
-                return new ResponseEntity("Designations of row being replaced have to be same",HttpStatus.BAD_REQUEST);
+                updateReplace.setDesi(update.getDesi());
             }
             else
             {
-                ups.setDesi(up.getDesi());
+                return new ResponseEntity("Designations of row being replaced have to be same",HttpStatus.BAD_REQUEST);
             }
-            ups.setpID(up.getpID());
-            Relation relation1 = repository1.findByDesi(up.getDesi());
-            ups.setJid(relation1);
-            repository.save(ups);
-            int p=ups.getId();
-            List<Employee> ls=repository.findAllByPID(id);
-            for(int i=0;i<ls.size();i++)
+            updateReplace.setpID(update.getpID()); //create check that pid can not be lower than pid of its child
+            Relation fkey = repository1.findByDesi(update.getDesi());
+            updateReplace.setJid(fkey);
+            repository.save(updateReplace);
+            int gID=updateReplace.getId();
+            List<Employee> listParent=repository.findAllByPID(id,Sort.by("jid","name").ascending());
+            for(int i=0;i<listParent.size();i++)
             {
-                Employee lp=ls.get(i);
-                lp.setpID(p);
+                Employee newParent=listParent.get(i);
+                newParent.setpID(gID);
             }
             repository.deleteById(id);
-            return new ResponseEntity(ups,HttpStatus.OK);
+            return new ResponseEntity(updateReplace,HttpStatus.OK);
         }
         else {
 
-            if (up == null) {
+            if (update == null) {
                 return new ResponseEntity("Unable to update. User with id " + id + " does not exist.", HttpStatus.NOT_FOUND);
             }
-            up.setName(user.getName());
-            up.setpID(up.getpID());
-            up.setDesi(up.getDesi());
-            Relation relation = repository1.findByDesi(up.getDesi());
-            Employee gss = repository.findById(up.getpID());
-            up.setJid(relation);
-//            int a = relation.getJid();
-//            int b = gss.getJid().getJid();
-//            if (a <= b)                                                                                                        //Compare Job ID's of entered record and parent
-//            {
-//                return new ResponseEntity("Designation can not be same or higher", HttpStatus.BAD_REQUEST);
-//            }
-//            if (user.getDesi().equals("Intern")) {
-//                return new ResponseEntity("Intern can not replace anyone", HttpStatus.BAD_REQUEST);
-//            }
-            repository.save(up);
+            String gName=user.getName();
+            if(update.getName().equals(gName) && update.getpID()==user.getpID())
+            {
+                return new ResponseEntity("Record Already Exists",HttpStatus.BAD_REQUEST);
+            }
+            else
+            {
+                update.setName(user.getName());
+            }
+            String tableDesi=update.getDesi();
+            String userDesi=user.getDesi();
+            if(tableDesi.equals(userDesi))
+            {
+                update.setDesi(update.getDesi());
+            }
+            else
+            {
+                return new ResponseEntity("Designations of row being replaced have to be same",HttpStatus.BAD_REQUEST);
+            }
+            //Set details in table entered by user
+            update.setpID(update.getpID());//check same as above block
+            update.setDesi(update.getDesi());
+            Relation fkey = repository1.findByDesi(update.getDesi());
+            Employee gss = repository.findById(update.getpID());
+            update.setJid(fkey);
+            repository.save(update);
         }
-        return new ResponseEntity(up, HttpStatus.OK);
+        return new ResponseEntity(update, HttpStatus.OK);
     }
 }
