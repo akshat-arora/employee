@@ -1,4 +1,4 @@
-package com.initializer.Employeedetails.GS;
+package com.initializer.Employeedetails.Tables;
 //Creating class for providing information for Post and Put methods
 public class Info {
 

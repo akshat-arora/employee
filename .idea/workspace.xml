@@ -2,20 +2,23 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2aebae04-9922-49a4-aab1-0102b215d82b" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/initializer/Employeedetails/EmployeeDetailsApplicationTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/initializer/Employeedetails/EmployeeDetailsApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/initializer/Employeedetails/EmployeeDetailsApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/initializer/Employeedetails/GS/Employee.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/initializer/Employeedetails/GS/Employee.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/initializer/Employeedetails/GS/Info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/initializer/Employeedetails/GS/Info.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/initializer/Employeedetails/GS/Relation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/initializer/Employeedetails/GS/Relation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/initializer/Employeedetails/Inter/EmployeeRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/initializer/Employeedetails/Inter/EmployeeRepo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/initializer/Employeedetails/Inter/RelationRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/initializer/Employeedetails/Inter/RelationRepo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/initializer/Employeedetails/result/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/initializer/Employeedetails/result/Controller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/initializer/Employeedetails/EmployeeDetailsApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/initializer/Employeedetails/EmployeeDetailsApplication.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/initializer/Employeedetails/GS/Employee.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/initializer/Employeedetails/GS/Employee.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/initializer/Employeedetails/Inter/EmployeeRepo.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/initializer/Employeedetails/Inter/EmployeeRepo.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/initializer/Employeedetails/result/Controller.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/initializer/Employeedetails/result/Controller.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/initializer/Employeedetails/GS/Employee.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/initializer/Employeedetails/Tables/Employee.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/initializer/Employeedetails/GS/Info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/initializer/Employeedetails/Tables/Info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/initializer/Employeedetails/GS/Relation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/initializer/Employeedetails/Tables/Relation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/initializer/Employeedetails/Inter/EmployeeRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/initializer/Employeedetails/Repositories/EmployeeRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/initializer/Employeedetails/Inter/RelationRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/initializer/Employeedetails/Repositories/RelationRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/initializer/Employeedetails/result/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/initializer/Employeedetails/ControllerPackage/Controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/initializer/Employeedetails/EmployeeDetailsApplicationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/initializer/Employeedetails/EmployeeDetailsApplicationTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/initializer/Employeedetails/EmployeeDetailsApplicationTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/initializer/Employeedetails/GS/Employee.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/initializer/Employeedetails/GS/Info.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/initializer/Employeedetails/GS/Relation.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/initializer/Employeedetails/Inter/EmployeeRepo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/initializer/Employeedetails/Inter/RelationRepo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/initializer/Employeedetails/result/Controller.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/com/initializer/Employeedetails/EmployeeDetailsApplicationTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/com/initializer/Employeedetails/EmployeeDetailsApplicationTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/com/initializer/Employeedetails/EmployeeDetailsApplicationTests.class" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -26,7 +29,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="TestNG Test Class" />
         <option value="JUnit5 Test Class" />
+        <option value="JUnit4 Test Class" />
       </list>
     </option>
   </component>
@@ -42,8 +47,13 @@
     <property name="RequestMappingsPanelWidth1" value="75" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit5" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit4" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit4" value="" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5" value="" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.TestNG" value="" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
     <property name="restartRequiresConfirmation" value="false" />
   </component>
   <component name="RecentsManager">
@@ -66,7 +76,190 @@
       </list>
     </option>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Spring Boot.EmployeeDetailsApplication">
+    <configuration name="EmployeeDetailsApplicationTest" type="JUnit" factoryName="JUnit" nameIsGenerated="true">
+      <module name="Employee-details" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.initializer.Employeedetails.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.initializer.Employeedetails" />
+      <option name="MAIN_CLASS_NAME" value="com.initializer.Employeedetails.EmployeeDetailsApplicationTest" />
+      <option name="METHOD_NAME" value="" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="PARAMETERS" value="" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EmployeeDetailsApplicationTest.deleteApi" type="JUnit" factoryName="JUnit" nameIsGenerated="true">
+      <module name="Employee-details" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.initializer.Employeedetails.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.initializer.Employeedetails" />
+      <option name="MAIN_CLASS_NAME" value="com.initializer.Employeedetails.EmployeeDetailsApplicationTest" />
+      <option name="METHOD_NAME" value="deleteApi" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="PARAMETERS" value="" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EmployeeDetailsApplicationTest.deleteDirApi" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Employee-details" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.initializer.Employeedetails.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.initializer.Employeedetails" />
+      <option name="MAIN_CLASS_NAME" value="com.initializer.Employeedetails.EmployeeDetailsApplicationTest" />
+      <option name="METHOD_NAME" value="deleteDirApi" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EmployeeDetailsApplicationTest.deleteStrApi" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Employee-details" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.initializer.Employeedetails.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.initializer.Employeedetails" />
+      <option name="MAIN_CLASS_NAME" value="com.initializer.Employeedetails.EmployeeDetailsApplicationTest" />
+      <option name="METHOD_NAME" value="deleteStrApi" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EmployeeDetailsApplicationTest.deletenegApi" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Employee-details" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.initializer.Employeedetails.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.initializer.Employeedetails" />
+      <option name="MAIN_CLASS_NAME" value="com.initializer.Employeedetails.EmployeeDetailsApplicationTest" />
+      <option name="METHOD_NAME" value="deletenegApi" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EmployeeDetailsApplicationTest.deletezeroApi" type="JUnit" factoryName="JUnit" nameIsGenerated="true">
+      <module name="Employee-details" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.initializer.Employeedetails.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.initializer.Employeedetails" />
+      <option name="MAIN_CLASS_NAME" value="com.initializer.Employeedetails.EmployeeDetailsApplicationTest" />
+      <option name="METHOD_NAME" value="deletezeroApi" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="PARAMETERS" value="" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EmployeeDetailsApplicationTest.findallApi" type="JUnit" factoryName="JUnit" nameIsGenerated="true">
+      <module name="Employee-details" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.initializer.Employeedetails.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.initializer.Employeedetails" />
+      <option name="MAIN_CLASS_NAME" value="com.initializer.Employeedetails.EmployeeDetailsApplicationTest" />
+      <option name="METHOD_NAME" value="findallApi" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="PARAMETERS" value="" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EmployeeDetailsApplicationTest.getOneApi" type="JUnit" factoryName="JUnit" nameIsGenerated="true">
+      <module name="Employee-details" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.initializer.Employeedetails.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.initializer.Employeedetails" />
+      <option name="MAIN_CLASS_NAME" value="com.initializer.Employeedetails.EmployeeDetailsApplicationTest" />
+      <option name="METHOD_NAME" value="getOneApi" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="PARAMETERS" value="" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EmployeeDetailsApplicationTest.getOnebrApi" type="JUnit" factoryName="JUnit" nameIsGenerated="true">
+      <module name="Employee-details" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.initializer.Employeedetails.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.initializer.Employeedetails" />
+      <option name="MAIN_CLASS_NAME" value="com.initializer.Employeedetails.EmployeeDetailsApplicationTest" />
+      <option name="METHOD_NAME" value="getOnebrApi" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="PARAMETERS" value="" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EmployeeDetailsApplicationTest.getOnenegApi" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Employee-details" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.initializer.Employeedetails.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.initializer.Employeedetails" />
+      <option name="MAIN_CLASS_NAME" value="com.initializer.Employeedetails.EmployeeDetailsApplicationTest" />
+      <option name="METHOD_NAME" value="getOnenegApi" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EmployeeDetailsApplicationTest.getOnezeroApi" type="JUnit" factoryName="JUnit" nameIsGenerated="true">
+      <module name="Employee-details" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.initializer.Employeedetails.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.initializer.Employeedetails" />
+      <option name="MAIN_CLASS_NAME" value="com.initializer.Employeedetails.EmployeeDetailsApplicationTest" />
+      <option name="METHOD_NAME" value="getOnezeroApi" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="PARAMETERS" value="" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="EmployeeDetailsApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <module name="Employee-details" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.initializer.Employeedetails.EmployeeDetailsApplication" />
@@ -74,6 +267,28 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <list>
+      <item itemvalue="JUnit.EmployeeDetailsApplicationTest" />
+      <item itemvalue="JUnit.EmployeeDetailsApplicationTest.findallApi" />
+      <item itemvalue="Spring Boot.EmployeeDetailsApplication" />
+      <item itemvalue="JUnit.EmployeeDetailsApplicationTest.getOneApi" />
+      <item itemvalue="JUnit.EmployeeDetailsApplicationTest.getOnebrApi" />
+      <item itemvalue="JUnit.EmployeeDetailsApplicationTest.getOnezeroApi" />
+      <item itemvalue="JUnit.EmployeeDetailsApplicationTest.deleteApi" />
+      <item itemvalue="JUnit.EmployeeDetailsApplicationTest.deletezeroApi" />
+      <item itemvalue="JUnit.EmployeeDetailsApplicationTest.deleteDirApi" />
+      <item itemvalue="JUnit.EmployeeDetailsApplicationTest.getOnenegApi" />
+      <item itemvalue="JUnit.EmployeeDetailsApplicationTest.deletenegApi" />
+      <item itemvalue="JUnit.EmployeeDetailsApplicationTest.deleteStrApi" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.EmployeeDetailsApplicationTest.deleteStrApi" />
+        <item itemvalue="JUnit.EmployeeDetailsApplicationTest.getOnenegApi" />
+        <item itemvalue="JUnit.EmployeeDetailsApplicationTest.deletenegApi" />
+        <item itemvalue="JUnit.EmployeeDetailsApplicationTest.deleteDirApi" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -85,7 +300,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1570448547293</updated>
-      <workItem from="1570448548719" duration="13081000" />
+      <workItem from="1570448548719" duration="37098000" />
     </task>
     <task id="LOCAL-00001" summary="Second Commit">
       <created>1570448939667</created>

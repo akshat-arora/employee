@@ -1,4 +1,4 @@
-package com.initializer.Employeedetails.GS;
+package com.initializer.Employeedetails.Tables;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 

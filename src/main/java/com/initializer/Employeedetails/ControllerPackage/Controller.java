@@ -1,20 +1,20 @@
-package com.initializer.Employeedetails.result;
+package com.initializer.Employeedetails.ControllerPackage;
 
-import com.initializer.Employeedetails.GS.Employee;
-import com.initializer.Employeedetails.GS.Relation;
-import com.initializer.Employeedetails.GS.Info;
-import com.initializer.Employeedetails.Inter.EmployeeRepo;
-import com.initializer.Employeedetails.Inter.RelationRepo;
+import com.initializer.Employeedetails.Tables.Employee;
+import com.initializer.Employeedetails.Tables.Relation;
+import com.initializer.Employeedetails.Tables.Info;
+import com.initializer.Employeedetails.Repositories.EmployeeRepo;
+import com.initializer.Employeedetails.Repositories.RelationRepo;
+import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+import java.lang.*;
 import java.util.*;
 
 @RestController
-@RequestMapping("/api")
 public class Controller
 {
     @Autowired
@@ -24,7 +24,10 @@ public class Controller
     @RequestMapping(value = "/rest/employees/get/{id}",method = RequestMethod.GET)
     @ResponseBody
     public ResponseEntity getOne(@PathVariable("id") int id)
-    {
+    {   if(id<=0)
+        {
+            return new ResponseEntity("ID can not be 0 or Negative ",HttpStatus.NOT_ACCEPTABLE);
+        }
         Map<String,Object> mp=new LinkedHashMap<>();
         //Fetching details of row with entered ID
         Employee user=repository.findById(id);
@@ -50,14 +53,16 @@ public class Controller
         return new ResponseEntity(mp,HttpStatus.OK);
     }
     //Method to fetch colleagues(this method removes the details of row itself and returns only colleague's info)
-    private List<Employee> coll(List<Employee> allColleague, int id)
+    private List<Employee> coll(List<Employee> allColleagues, int id)
     {
         List<Employee> listColleague=new ArrayList<>();
-        for(int i=0;i<allColleague.size();i++)
+        for(int i=0;i<allColleagues.size();i++)
         {
-            Employee addColleague=allColleague.get(i);
+          Employee addColleague = allColleagues.get(i);
+            //Relation one=repository1.findByJid(addColleague.getJid(),Sort.by("lid").ascending());
             if(addColleague.getId()!=id)
             {
+                //Employee two=repository.findByJid(one.getJid());
                 listColleague.add(addColleague);
             }
         }
@@ -77,33 +82,54 @@ public class Controller
     @PostMapping(path = "/rest/employees/post",consumes = {"application/json"})
     public ResponseEntity postDetail(@RequestBody Info user)
     {
-        if((user.getName()==null) || (user.getDesi()==null) || (user.getpID()==null))
-        {
-            return new ResponseEntity("Any of the required values can not be null. Enter Name,Designation and PID and try again.",HttpStatus.BAD_REQUEST);
+
+        if((user.getName()==null) || (user.getDesi()==null) || (user.getpID()==null)) {
+            return new ResponseEntity("Any of the required values can not be null. Enter Name,Designation and PID and try again.", HttpStatus.BAD_REQUEST);
         }
         Employee tDetails=new Employee();
         //Set details that are entered by user in new entry
         tDetails.setName(user.getName());
         tDetails.setpID(user.getpID());
         //Fetch designation from Relation table for auto assigning Job ID
-        Relation fkey = repository1.findByDesi(user.getDesi());
         tDetails.setDesi(user.getDesi());
-        tDetails.setJid(fkey);
-        Employee tPidDetails=repository.findById(tDetails.getpID());
-        int tableJid=fkey.getJid();
-        int userJid=tPidDetails.getJid().getJid();
-        if(tableJid<=userJid)
+        Relation fskey=repository1.findByDesi(user.getDesi());
+        if (fskey==null)
         {
-            return new ResponseEntity("Designation can not be same or higher",HttpStatus.BAD_REQUEST);
+
+            Employee d=repository.findById(tDetails.getpID());
+            Relation r=repository1.findByDesi(d.getDesi());
+            Relation re=new Relation();
+            re.setDesi(user.getDesi());
+            re.setLid(((2*r.getLid())+10)/2);
+            repository1.save(re);
+            tDetails.setJid(re);
+            repository.save(tDetails);
         }
-        repository.save(tDetails);
+        else
+        {
+            tDetails.setJid(fskey);
+            Employee tPidDetails = repository.findById(tDetails.getpID());
+            int tableJid = fskey.getJid();
+            int userJid = tPidDetails.getJid().getJid();
+            if (tableJid <= userJid) {
+                return new ResponseEntity("Designation can not be same or higher", HttpStatus.BAD_REQUEST);
+            }
+            repository.save(tDetails);
+        }
         return new ResponseEntity(tDetails,HttpStatus.OK);
     }
 
 
     @DeleteMapping(value = "/rest/employees/delete/{id}")
     public ResponseEntity deleteOne(@PathVariable("id") int id)
-    {
+    {   if(id<=0)
+        {
+            return new ResponseEntity("Id 0 does not exist.",HttpStatus.NOT_ACCEPTABLE);
+        }
+        if(!Integer.class.isInstance(id))
+        {
+            return new ResponseEntity("ID entered has to be an integer",HttpStatus.BAD_REQUEST);
+        }
         //Getting row information of id that is to be deleted
         Employee user=repository.findById(id);
         String designation=user.getDesi();
@@ -130,16 +156,36 @@ public class Controller
     public ResponseEntity updateOne(@PathVariable("id") int id,@RequestBody Info user)
     {   Employee update = repository.findById(id);
         if(user.isReplace())
-        {   if (update == null) {
+        {   if (update == null)
+            {
             return new ResponseEntity("Unable to update. User with id " + id + " does not exist.", HttpStatus.NOT_FOUND);
-        }
+            }
             Employee updateReplace=new Employee();
             String gName=user.getName();
             if(update.getName().equals(gName) && update.getpID()==user.getpID())
             {
                 return new ResponseEntity("Record Already Exists",HttpStatus.BAD_REQUEST);
             }
+
             //Set details in table entered by user
+            if(user.getName()==null)
+            {
+                updateReplace.setName(update.getName());
+                updateReplace.setDesi(user.getDesi());
+                updateReplace.setpID(user.getpID());
+            }
+            if(user.getDesi()==null)
+            {
+                updateReplace.setName(user.getName());
+                updateReplace.setDesi(update.getDesi());
+                updateReplace.setpID(user.getpID());
+            }
+            if(user.getpID()==null)
+            {
+                updateReplace.setName(user.getName());
+                updateReplace.setDesi(user.getDesi());
+                updateReplace.setpID(update.getpID());;
+            }
             updateReplace.setName(user.getName());
             String tableDesi=update.getDesi();
             String userDesi=user.getDesi();
