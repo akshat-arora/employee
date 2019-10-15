@@ -6,8 +6,8 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface RelationRepo extends CrudRepository<Relation,Integer> {
 
-    Relation findByDesi(String desi);
-    Iterable<Relation> findAllByDesi(String desi);
-    Relation findByJid(Relation relation, Sort sort);
+    Relation findByJobTitle(String desi);
+    Iterable<Relation> findAllByJobTitle(String desi);
+    Relation findByJid(int id, Sort sort);
 
 }

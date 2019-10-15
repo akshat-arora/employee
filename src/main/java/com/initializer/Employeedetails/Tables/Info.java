@@ -4,8 +4,8 @@ public class Info {
 
     private Integer id = -1;
     private String name = null;
-    private String desi = null;
-    private Integer pID = null;
+    private String jobTitle = null;
+    private Integer managerId = null;
     private boolean replace = false;
 
 
@@ -25,20 +25,20 @@ public class Info {
         this.name = name;
     }
 
-    public String getDesi() {
-        return desi;
+    public String getJobTitle() {
+        return jobTitle;
     }
 
-    public void setDesi(String desi) {
-        this.desi = desi;
+    public void setJobTitle(String jobTitle) {
+        this.jobTitle = jobTitle;
     }
 
-    public Integer getpID() {
-        return pID;
+    public Integer getManagerId() {
+        return managerId;
     }
 
-    public void setpID(Integer pID) {
-        this.pID = pID;
+    public void setManagerId(Integer managerId) {
+        this.managerId = managerId;
     }
 
     public boolean isReplace() {

@@ -1,6 +1,8 @@
 package com.initializer.Employeedetails.Tables;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import io.swagger.models.auth.In;
 
 import javax.persistence.*;
 
@@ -10,15 +12,25 @@ import javax.persistence.*;
 public class Employee {
     @Id
     //Creating table with different columns and generating their getters and setters
-    @Column(name = "E_id")
+    @JsonProperty("id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
+    @JsonProperty("name")
     private String name;
-    private String desi;
+    //@JsonProperty("designation")
+    //private String desi;
+
+    //@JsonProperty("managerId")
     @JsonIgnore
-    private int pID;
+    @Column(name = "manager",nullable = true)
+    private int managerId;
+
+    @Transient
+    @JsonProperty("jobTitle")
+    private String jobTitle;
+
     @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "jid")
+    @JoinColumn(name = "designation")
     @JsonIgnore
     private Relation jid;
     public Employee(){}
@@ -38,20 +50,12 @@ public class Employee {
         this.name = name;
     }
 
-    public String getDesi() {
-        return desi;
+    public int getManagerId() {
+        return managerId;
     }
 
-    public void setDesi(String desi) {
-        this.desi = desi;
-    }
-
-    public int getpID() {
-        return pID;
-    }
-
-    public void setpID(int pID) {
-        this.pID = pID;
+    public void setManagerId(int managerId) {
+        this.managerId = managerId;
     }
 
     public Relation getJid() {
@@ -61,4 +65,14 @@ public class Employee {
     public void setJid(Relation jid) {
         this.jid = jid;
     }
+
+    public String getJobTitle() {
+        return jid.getJobTitle();
+    }
+
+    public void setJobTitle(String jobTitle) {
+        this.jobTitle = jobTitle;
+    }
+
 }
+

@@ -3,6 +3,7 @@ package com.initializer.Employeedetails.Tables;
 //import org.springframework.data.annotation.Id;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -16,16 +17,18 @@ public class Relation implements Serializable {
     @JoinColumn
     @JsonIgnore
     private Integer jid;
-    private String desi;
+    //@JsonProperty("jobTitle")
+    private String jobTitle;
+    //@JsonProperty("level")
     @JsonIgnore
     private float lid;
     public Integer getJid() { return jid; }
     public void setJid(Integer j_id) { this.jid = jid; }
-    public String getDesi() {
-        return desi;
+    public String getJobTitle() {
+        return jobTitle;
     }
-    public void setDesi(String desi) {
-        this.desi = desi;
+    public void setJobTitle(String jobTitle) {
+        this.jobTitle = jobTitle;
     }
     public float getLid() { return lid;}
     public void setLid(float lid) { this.lid = lid;}
